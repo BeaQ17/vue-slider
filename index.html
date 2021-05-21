@@ -13,10 +13,15 @@
     <!-- style -->
     <style>
 
+        body{
+            background-color: bisque;
+        }
+
         #container{
             display: inline-flex;
             flex-direction: row;
             align-items: center;
+            justify-content: center;
         }
 
         img{
@@ -25,8 +30,16 @@
             object-fit: contain;
         }
 
+        nav{
+            text-align: center;
+        }
+
         .next, .prev{
             font-size: 50px;
+        }
+
+        .active{
+            color: red;
         }
 
     </style>
@@ -34,11 +47,19 @@
 <body>
 
     <div id="container">
-        <div class="prev" @click="prev">
+        <div class="prev" @click="prev" @keyup.left="prevKey">
             <i class="fas fa-chevron-left"></i>
         </div>
+    <div class="images">
         <img :src="imgs[counter]" alt="memes of john mulaney">
-        <div class="next" @click="next">
+        <nav>
+            <i class="fas fa-circle" 
+            :class="counter === index ? 'active' : '' " 
+            v-for="(img, index) in imgs"
+            @click="selectImage(index)"></i>
+        </nav>
+    </div>
+        <div class="next" @click="next" @keyup.right="nextKey">
             <i class="fas fa-chevron-right"></i>
         </div>
     </div>

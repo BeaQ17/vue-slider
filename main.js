@@ -14,19 +14,37 @@ const gallery = new Vue({
 
     methods: {
         prev(){
-            console.log("clic on prev");
+            console.log("click on prev");
             if(this.counter === 0){
                 return this.imgs.length - 1;
             }
             return this.counter -= 1;
         },
         next(){
-            console.log("clic on next");
+            console.log("click on next");
             if(this.counter === this.imgs.length - 1){
                 return this.counter = 0;
             }
             return this.counter += 1;
-        }
+        },
+
+        
+    },
+
+    mounted(){
+        //keyboard event
+        document.addEventListener("keyup", (e) => {
+            if(e.key === "ArrowRight"){
+                this.next();
+            }
+            if(e.key === "ArrowLeft"){
+                this.prev();
+            }
+        });
+
+        //infinite sliding
+        setInterval(this.next, 5000)
     }
 
 });
+
